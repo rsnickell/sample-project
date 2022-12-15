@@ -42,7 +42,8 @@ export default class LoanRepository {
    * @returns The updated loan details
    */
   async update(loanDto: LoanDTO): Promise<Loan> {
-    const savedLoan = await AppDataSource.manager.save(Loan, loanDto);
+    await AppDataSource.manager.save(Loan, loanDto);
+    const savedLoan =  await AppDataSource.manager.findOneBy(Loan, {id: loanDto.id});
     return savedLoan;
   }
 }
